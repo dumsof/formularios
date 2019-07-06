@@ -1,17 +1,27 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+
+/* se agrega en los estilos la validacion que permite que los bordes
+   de las cajas de texto se coloquen rojas cuando no cumplen las validaciones
+*/
 @Component({
   selector: 'app-template',
   templateUrl: './template.component.html',
-  styles: []
+  styles: [`
+      .ng-invalid.ng-touched:not(form) {
+        border: 1px solid red;
+      }
+  `]
 })
+
+
 export class TemplateComponent {
 
   usuario: Object = {
-    nombre: 'Dum',
-    apellido: 'Urru',
-    correo: 'dun34@hotmail.com'
+    nombre: null,
+    apellido: null,
+    correo: null
   };
 
   constructor() { }

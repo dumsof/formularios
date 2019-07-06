@@ -11,15 +11,25 @@ se debe utilizar [()], si solo se utiliza los corchete es para presentar la info
             <label class="col-2 col-form-label">Nombre</label>
             <div class="col-8">
 
-                <input class="form-control" type="text" placeholder="Nombre" name="nombre" [(ngModel)]="usuario.nombre" required maxlength="5">
+                <input class="form-control" type="text" placeholder="Nombre" name="nombre" [(ngModel)]="usuario.nombre" required minlength="5" #nombre="ngModel">
+                <div *ngIf="nombre.errors?.required">
+                    Este campo es requerido.
+                </div>
+                <div *ngIf="nombre.errors?.minlength">
+                    Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres.
+                </div>
             </div>
         </div>
-
         <div class="form-group row">
             <label class="col-2 col-form-label">Apellido</label>
             <div class="col-8">
-
-                <input class="form-control" type="text" placeholder="Apellido" name="apellido" [(ngModel)]="usuario.apellido" required maxlength="5">
+                <input class="form-control" type="text" placeholder="Apellido" name="apellido" [(ngModel)]="usuario.apellido" required minlength="5" #apellido="ngModel">
+                <div *ngIf="apellido.errors?.required">
+                    Este campo es requerido.
+                </div>
+                <div *ngIf="apellido.errors?.minlength">
+                    Por lo menos {{ apellido.errors.minlength.requiredLength }} caracteres.
+                </div>
             </div>
         </div>
 
@@ -29,7 +39,13 @@ se debe utilizar [()], si solo se utiliza los corchete es para presentar la info
         <label class="col-2 col-form-label">Correo</label>
         <div class="col-md-8">
 
-            <input class="form-control" type="email" placeholder="Correo electrónico" name="correo" [(ngModel)]="usuario.correo" required maxlength="50">
+            <input class="form-control" type="email" placeholder="Correo electrónico" name="correo" #correo="ngModel" [(ngModel)]="usuario.correo" required maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+            <div *ngIf="correo.errors?.required">
+                Este campo es requerido.
+            </div>
+            <div *ngIf="correo.errors?.pattern">
+                El campo debe tener un formato de correo.
+            </div>
         </div>
     </div>
 
