@@ -7,15 +7,15 @@ se debe utilizar [()], si solo se utiliza los corchete es para presentar la info
 
     <div>
 
-        <div class="form-group row">
+        <div class="form-group row" [ngClass]="{'has-danger': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched }">
             <label class="col-2 col-form-label">Nombre</label>
             <div class="col-8">
 
                 <input class="form-control" type="text" placeholder="Nombre" name="nombre" [(ngModel)]="usuario.nombre" required minlength="5" #nombre="ngModel">
-                <div *ngIf="nombre.errors?.required">
+                <div class="form-control-feedback" *ngIf="nombre.errors?.required">
                     Este campo es requerido.
                 </div>
-                <div *ngIf="nombre.errors?.minlength">
+                <div class="form-control-feedback" *ngIf="nombre.errors?.minlength">
                     Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres.
                 </div>
             </div>
@@ -54,7 +54,7 @@ se debe utilizar [()], si solo se utiliza los corchete es para presentar la info
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md-8">
-            <button type="submit" class="btn btn-outline-primary">
+            <button [disabled]="!formulario.valid" type="submit" class="btn btn-outline-primary">
         Guardar
       </button>
         </div>
