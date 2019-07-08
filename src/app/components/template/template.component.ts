@@ -22,7 +22,8 @@ export class TemplateComponent {
     nombre: null,
     apellido: null,
     correo: null,
-    pais: ''
+    pais: '',
+    sexo: 'M'
   };
   paises = [{
     codigo: 'CRI',
@@ -31,6 +32,14 @@ export class TemplateComponent {
   {
     codigo: 'ESP',
     nombre: 'España'
+  }];
+  sexos = [{
+    codigo: 'M',
+    nombre: 'Masculino'
+  },
+  {
+    codigo: 'F',
+    nombre: 'Femenino'
   }];
   constructor() { }
 
