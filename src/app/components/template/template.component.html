@@ -69,7 +69,16 @@ se debe utilizar [()], si solo se utiliza los corchete es para presentar la info
             </label>
         </div>
     </div>
-
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Acepta</label>
+        <div class="col-md-8">
+            <label class="custom-control custom-checkbox">
+                        <input [(ngModel)]="usuario.acepta" name="acepta" type="checkbox" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Check this custom checkbox</span>
+                      </label>
+        </div>
+    </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>

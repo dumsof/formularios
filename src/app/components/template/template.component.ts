@@ -23,7 +23,8 @@ export class TemplateComponent {
     apellido: null,
     correo: null,
     pais: '',
-    sexo: 'M'
+    sexo: 'M',
+    acepta: false
   };
   paises = [{
     codigo: 'CRI',
