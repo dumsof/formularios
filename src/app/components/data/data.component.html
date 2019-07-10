@@ -1,36 +1,51 @@
 <h4>Formularios <small>Data</small></h4>
 <hr>
-<form>
+<!-- con la propiedad  [formGroup]="forma" enlaza los controles a las propiedades del componente -->
+<form [formGroup]="forma" (ngSubmit)="guardarCambios()">
 
-    <div>
-
-        <div class="form-group row">
+    <div formGroupName="nombrecompleto">
+        <!-- agregando la propiedad  formControlName="" se enlaza el control con la propiedad this.forma = new FormGroup{ nombre:"Nombre uno"} 
+             de esta forma funciona para todos los controles-->
+        <div class="form-group row" [ngClass]="{ 'has-danger': !forma.get('nombrecompleto.nombre').valid}">
             <label class="col-2 col-form-label">Nombre</label>
             <div class="col-8">
+                <input formControlName="nombre" class="form-control" type="text" placeholder="Nombre">
 
-                <input class="form-control" type="text" placeholder="Nombre">
+                <div *ngIf="forma.get('nombrecompleto.nombre').errors?.required" class="form-control-feedback">
+                    El campo nombre es requerido.
+                </div>
+                <div *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength" class="form-control-feedback">
+                    Por lo menos 3 caracteres.
+                </div>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-2 col-form-label">Apellido</label>
             <div class="col-8">
-
-                <input class="form-control" type="text" placeholder="Apellido">
+                <input formControlName="apellido" class="form-control" type="text" placeholder="Apellido">
+                <div *ngIf="forma.get('nombrecompleto.apellido').errors?.required" class="form-control-feedback">
+                    El campo apellido es requerido.
+                </div>
+                <div *ngIf="forma.get('nombrecompleto.apellido').errors?.minlength" class="form-control-feedback">
+                    Por lo menos 3 caracteres.
+                </div>
             </div>
         </div>
-
     </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">Correo</label>
         <div class="col-md-8">
-
-            <input class="form-control" type="email" placeholder="Correo electrónico">
+            <input formControlName="correo" class="form-control" type="email" placeholder="Correo electrónico">
+            <div *ngIf="forma.get('correo').errors?.required" class="form-control-feedback">
+                El campo correo es requerido.
+            </div>
+            <div *ngIf="forma.get('correo').errors?.pattern" class="form-control-feedback">
+                Debe ingresar un dirección de correo valida.
+            </div>
         </div>
     </div>
-
-
 
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
@@ -40,5 +55,5 @@
       </button>
         </div>
     </div>
-
+    {{forma.valid}}
 </form>
