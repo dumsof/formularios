@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 /* se importa para interactuar con los formularios de angular */
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-data',
@@ -16,7 +16,8 @@ export class DataComponent {
       nombre: 'nombre dum',
       apellido: 'apellido'
     },
-    correo: 'correo33@servidor.com'
+    correo: 'correo33@servidor.com',
+    pasatiempos: ['Correr', 'Dormir', 'Correr']
   };
 
   constructor() {
@@ -41,6 +42,9 @@ export class DataComponent {
       correo: new FormControl('', [
         Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+      ]),
+      pasatiempos: new FormArray([
+        new FormControl('Correr', Validators.required)
       ])
     });
     /* linea para mostrar todos los datos de una vez en el formulario por defecto
@@ -71,6 +75,12 @@ export class DataComponent {
     console.log(this.forma);
     /* Resetear o borrar los datos del formulario despues de guardar */
     this.borrarCampos();
+  }
+
+  agregarPasatiempo() {
+   /*  (<FormArray>this.forma.controls['pasatiempos']).push(
+      new FormControl('Dormir', Validators.required)
+    ); */
   }
 
   borrarCampos() {
