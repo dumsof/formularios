@@ -51,7 +51,7 @@ export class DataComponent {
        esto es valido siempre y cuando el objeto tenga la misma estructura de FormGroup, en 
        este caso el objeto forma.
     */
-    this.forma.setValue(this.usuario);
+   /*  this.forma.setValue(this.usuario); */
 
 
     /* Manejo del objeto simple sin valores anidados */
@@ -78,9 +78,9 @@ export class DataComponent {
   }
 
   agregarPasatiempo() {
-   /*  (<FormArray>this.forma.controls['pasatiempos']).push(
-      new FormControl('Dormir', Validators.required)
-    ); */
+    (<FormArray>this.forma.controls['pasatiempos']).push(
+      new FormControl('', Validators.required)
+    )
   }
 
   borrarCampos() {
