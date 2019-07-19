@@ -34,10 +34,11 @@ export class DataComponent {
             Validators.required,
             Validators.minLength(3)
           ]),
-          apellido: new FormControl('', [
-            Validators.required,
+          apellido: new FormControl('',
+            [Validators.required,
+            this.noHerrera,
             Validators.minLength(3)
-          ])
+            ])
         }),
       correo: new FormControl('', [
         Validators.required,
@@ -45,13 +46,20 @@ export class DataComponent {
       ]),
       pasatiempos: new FormArray([
         new FormControl('Correr', Validators.required)
-      ])
+      ]),
+      password1: new FormControl('', Validators.required),
+      password2: new FormControl()
     });
+    /* nueva forma de agregar validación a un control que equivale a lo anterior */
+    this.forma.controls['password2'].setValidators([
+      Validators.required,
+      this.noIgual.bind(this.forma)
+    ]);
     /* linea para mostrar todos los datos de una vez en el formulario por defecto
        esto es valido siempre y cuando el objeto tenga la misma estructura de FormGroup, en 
        este caso el objeto forma.
     */
-   /*  this.forma.setValue(this.usuario); */
+    /*  this.forma.setValue(this.usuario); */
 
 
     /* Manejo del objeto simple sin valores anidados */
@@ -82,7 +90,31 @@ export class DataComponent {
       new FormControl('', Validators.required)
     )
   }
+  /* INICIO VALIDACION */
+  /* crear validaciones personalizadas, en este caso se necesita que no se pueda ingresar un nombre herrera */
+  noHerrera(control: FormControl): { [s: string]: boolean } {
+    /* si devuelve true es porque no cumple con la validacion y se digito herrera */
+    if (control.value === 'herrera') {
+      return {
+        noherrera: true
+      };
+    }
+    /* entra por este lado cuando no se cumple la validación lo deja continuar */
+    return null;
+  }
 
+  noIgual(control: FormControl): any {
+    let forma: any = this;
+    /* si devuelve true es porque no cumple con la validacion y se digito herrera */
+    if (control.value !== forma.controls['password1'].value) {
+      return {
+        noiguales: true
+      };
+    }
+    /* entra por este lado cuando no se cumple la validación lo deja continuar */
+    return null;
+  }
+  /* FINAL VALIDACION */
   borrarCampos() {
     this.forma.reset({
       nombrecompleto: {
