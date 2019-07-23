@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 /* se importa para interactuar con los formularios de angular */
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-data',
@@ -47,6 +48,7 @@ export class DataComponent {
       pasatiempos: new FormArray([
         new FormControl('Correr', Validators.required)
       ]),
+      username: new FormControl('', Validators.required, this.existeUsuairo),
       password1: new FormControl('', Validators.required),
       password2: new FormControl()
     });
@@ -55,6 +57,23 @@ export class DataComponent {
       Validators.required,
       this.noIgual.bind(this.forma)
     ]);
+
+    /* se quiere estar atento al cambio o un evento en el formulario, ejemp: cuando se selecciona un combo
+    pais y hay otro cuidad, donde el ciudad se debe cargar dependiendo el pais que se selecciona  
+    -para esto se debe crear un observador para estar pendienta a la data
+    -se puede escuchar o suscribir cuando cambia el dato de un control, el evento se ejecutara por cada
+    caracter que se escriba en el control usuario*/
+    this.forma.controls['username'].valueChanges
+      .subscribe(data => {
+        console.log(data);
+      });
+/* devuelve si el control es valido */
+    this.forma.controls['username'].statusChanges
+      .subscribe(data => {
+        console.log(data);
+      });
+
+
     /* linea para mostrar todos los datos de una vez en el formulario por defecto
        esto es valido siempre y cuando el objeto tenga la misma estructura de FormGroup, en 
        este caso el objeto forma.
@@ -114,6 +133,21 @@ export class DataComponent {
     /* entra por este lado cuando no se cumple la validación lo deja continuar */
     return null;
   }
+  existeUsuairo(control: FormControl): Promise<any> | Observable<any> {
+    let promesa = new Promise(
+      (resolve, reject) => {
+        setTimeout(() => {
+          if (control.value === 'strider') {
+            resolve({ existe: true })
+          } else {
+            resolve(null)
+          }
+        }, 3000);
+      }
+    );
+    return promesa;
+  }
+
   /* FINAL VALIDACION */
   borrarCampos() {
     this.forma.reset({
